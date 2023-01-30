@@ -9,7 +9,7 @@ module.exports = async (req,res) => {
     const data = await DAO.deposit(account,amount);
 
     const channel = await transactionsChannel();
-    await channel.channel.publish(channel.transactionExchange, '', Buffer.from(JSON.stringify(`An Amount of ${amount} is credited to you account:${account} and total amount is ${data.balance}`)))
+    await channel.channel.publish(channel.transactionExchange, '', Buffer.from(JSON.stringify({message:`An Amount of ${amount} is credited to you account:${account} and total amount is ${data.balance}`,user:data.user})))
 
     res.status(201).json({data:data,message:"Deposit Complete"});
   } catch (e) {

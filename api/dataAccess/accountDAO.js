@@ -1,6 +1,7 @@
 // const client = require('../config/MongoDb');
 const { MongoClient } = require('mongodb');
 const client = new MongoClient(process.env.MONGOURI);
+const userDAO = require("./userDao");
 
 module.exports = class AccountDAO{
   static async createAccount(account){
@@ -61,8 +62,9 @@ module.exports = class AccountDAO{
         throw new Error("Insufficient Balance");
       }
 
+      const user = userDAO.getUser(account.userId);
       const response = await db.collection('Accounts').updateOne({accountNumber:accNumber}, {$set:{money:balance}})
-      return {response,balance};
+      return {response,balance,user};
     } catch (e) {
       throw new Error(e);
     } finally{
@@ -82,8 +84,9 @@ module.exports = class AccountDAO{
 
       const balance = account.money + parseInt(amount);
       
+      const user = userDAO.getUser(account.userId);
       const response = await db.collection('Accounts').updateOne({accountNumber:accNumber}, {$set:{money:balance}})
-      return {response,balance};
+      return {response,balance,user};
     } catch (e) {
       throw new Error(e);
     } finally{

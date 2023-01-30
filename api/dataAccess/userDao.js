@@ -19,7 +19,20 @@ module.exports = class userDAO{
     try {
       await client.connect();
       const db = client.db('Bank');
-      const user = await db.collection('Users').find().toArray();
+      const users = await db.collection('Users').find().toArray();
+      return users;
+    } catch (e) {
+      throw new Error(e);
+    } finally{
+      client.close();
+    }
+  }
+
+  static async getUser(id){
+    try {
+      await client.connect();
+      const db = client.db('Bank');
+      const user = await db.collection('Users').findOne({_id:id});
       return user;
     } catch (e) {
       throw new Error(e);
