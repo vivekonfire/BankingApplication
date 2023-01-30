@@ -1,0 +1,26 @@
+{
+  "name": "bankingassignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node www",
+    "dev": "nodemon www"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongodb": "^4.13.0",
+    "morgan": "^1.10.0",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
