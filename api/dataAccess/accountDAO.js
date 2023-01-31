@@ -62,7 +62,7 @@ module.exports = class AccountDAO{
         throw new Error("Insufficient Balance");
       }
 
-      const user = userDAO.getUser(account.userId);
+      const user = await userDAO.getUser(account.userId);
       const response = await db.collection('Accounts').updateOne({accountNumber:accNumber}, {$set:{money:balance}})
       return {response,balance,user};
     } catch (e) {
@@ -84,7 +84,7 @@ module.exports = class AccountDAO{
 
       const balance = account.money + parseInt(amount);
       
-      const user = userDAO.getUser(account.userId);
+      const user = await userDAO.getUser(account.userId);
       const response = await db.collection('Accounts').updateOne({accountNumber:accNumber}, {$set:{money:balance}})
       return {response,balance,user};
     } catch (e) {

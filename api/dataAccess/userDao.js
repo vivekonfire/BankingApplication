@@ -1,5 +1,5 @@
 // const client = require('../config/MongoDb');
-const { MongoClient } = require('mongodb');
+const { MongoClient,ObjectId } = require('mongodb');
 const client = new MongoClient(process.env.MONGOURI);
 
 module.exports = class userDAO{
@@ -32,7 +32,7 @@ module.exports = class userDAO{
     try {
       await client.connect();
       const db = client.db('Bank');
-      const user = await db.collection('Users').findOne({_id:id});
+      const user = await db.collection('Users').findOne({_id:ObjectId(id)});
       return user;
     } catch (e) {
       throw new Error(e);
